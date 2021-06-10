@@ -10,6 +10,8 @@
 #include <time.h>
 
 #include "Vector.h"
+#include "Ray.h"
+#include "Camera.h"
 
 struct RGBType
 {
@@ -146,6 +148,8 @@ int main(int argc, char* argv[])
 	Vector X(1, 0, 0);
 	Vector Y(0, 1, 0);
 	Vector Z(0, 0, 1);
+
+
 
 	for (int x = 0; x < width; x++)
 	{
