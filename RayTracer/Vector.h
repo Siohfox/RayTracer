@@ -15,6 +15,14 @@ public:
 	double getVectorY() { return m_y; }
 	double getVectorZ() { return m_z; }
 
+	double Magnitude();
+	Vector Normalize();
+	Vector Negative();
+	double DotProduct(Vector);
+	Vector CrossProduct(Vector);
+	Vector AddVector(Vector v);
+	Vector MultiplyVector(double scalar);
+
 private:
 	double m_x, m_y, m_z;
 };
