@@ -1,15 +1,18 @@
-#include "Vectors.h"
+#include "Vector.h"
 
-Vectors::Vectors()
+// Default Vector Constructor
+Vector::Vector()
 {
-	x = 0;
-	y = 0;
-	z = 0;
+	// Defaults
+	m_x = 0;
+	m_y = 0;
+	m_z = 0;
 }
 
-Vectors::Vectors(double _x, double _y, double _z)
+// Vector constructor with params
+Vector::Vector(double _x, double _y, double _z)
 {
-	x = _x;
-	y = _y;
-	z = _z;
+	m_x = _x;
+	m_y = _y;
+	m_z = _z;
 }
