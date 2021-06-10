@@ -118,9 +118,18 @@ int main(int argc, char* argv[])
 		{
 			thisOne = y * width + x;
 
-			pixels[thisOne].red = 23;
-			pixels[thisOne].green = 222;
-			pixels[thisOne].blue = 10;
+			if ((x > 200 && x < 440) && (y > 200 && y < 280))
+			{
+				pixels[thisOne].red = 23;
+				pixels[thisOne].green = 222;
+				pixels[thisOne].blue = 10;
+			}
+			else 
+			{
+				pixels[thisOne].red = 0;
+				pixels[thisOne].green = 0;
+				pixels[thisOne].blue = 0;
+			}
 
 			//return colour
 		}
