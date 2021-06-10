@@ -109,6 +109,7 @@ int main(int argc, char* argv[])
 	int height = 480;
 	int totalNumberOfPixels = width * height;
 
+
 	RGBType* pixels = new RGBType[totalNumberOfPixels];
 
 	for (int x = 0; x < width; x++)
