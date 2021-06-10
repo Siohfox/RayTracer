@@ -31,37 +31,67 @@ void SaveBMP(const char* filename, int width, int height, int dpi, RGBType* data
 	unsigned char bmpfileheader[14] = { 'B', 'M', 0,0,0,0, 0,0,0,0, 54,0,0,0 };
 	unsigned char bmpinfoheader[40] = { 40,0,0,0, 0,0,0,0, 0,0,0,0, 1,0,24,0 };
 
-	bmpfileheader[2] = (unsigned char)(filesize);
-	bmpfileheader[3] = (unsigned char)(filesize >> 8);
-	bmpfileheader[4] = (unsigned char)(filesize >> 16);
-	bmpfileheader[5] = (unsigned char)(filesize >> 24);
+	for (int x = 2, y = NULL; x < 6; x++, y+=8)
+	{
+		bmpfileheader[x] = (unsigned char)(filesize >> y);
+	}
+		
 
-	bmpinfoheader[4] = (unsigned char)(width);
-	bmpinfoheader[5] = (unsigned char)(width >> 8);
-	bmpinfoheader[6] = (unsigned char)(width >> 16);
-	bmpinfoheader[7] = (unsigned char)(width >> 24);
+	//bmpfileheader[2] = (unsigned char)(filesize);
+	//bmpfileheader[3] = (unsigned char)(filesize >> 8);
+	//bmpfileheader[4] = (unsigned char)(filesize >> 16);
+	//bmpfileheader[5] = (unsigned char)(filesize >> 24);
 
-	bmpinfoheader[8] = (unsigned char)(height);
-	bmpinfoheader[9] = (unsigned char)(height >> 8);
-	bmpinfoheader[10] = (unsigned char)(height >> 16);
-	bmpinfoheader[11] = (unsigned char)(height >> 24);
 
-	bmpinfoheader[21] = (unsigned char)(s);
-	bmpinfoheader[22] = (unsigned char)(s >> 8);
-	bmpinfoheader[23] = (unsigned char)(s >> 16);
-	bmpinfoheader[24] = (unsigned char)(s >> 24);
+	for (int x = 4, y = NULL; x < 8; x++, y += 8)
+	{
+		bmpinfoheader[x] = (unsigned char)(width >> y);
+	}
 
-	bmpinfoheader[25] = (unsigned char)(ppm);
-	bmpinfoheader[26] = (unsigned char)(ppm >> 8);
-	bmpinfoheader[27] = (unsigned char)(ppm >> 16);
-	bmpinfoheader[28] = (unsigned char)(ppm >> 24);
+	//bmpinfoheader[4] = (unsigned char)(width);
+	//bmpinfoheader[5] = (unsigned char)(width >> 8);
+	//bmpinfoheader[6] = (unsigned char)(width >> 16);
+	//bmpinfoheader[7] = (unsigned char)(width >> 24);
 
-	bmpinfoheader[29] = (unsigned char)(ppm);
-	bmpinfoheader[30] = (unsigned char)(ppm >> 8);
-	bmpinfoheader[31] = (unsigned char)(ppm >> 16);
-	bmpinfoheader[32] = (unsigned char)(ppm >> 24);
+	for (int x = 8, y = NULL; x < 12; x++, y += 8)
+	{
+		bmpinfoheader[x] = (unsigned char)(height >> y);
+	}
 
-	//file = fopen(filename, "wb");
+	//bmpinfoheader[8] = (unsigned char)(height);
+	//bmpinfoheader[9] = (unsigned char)(height >> 8);
+	//bmpinfoheader[10] = (unsigned char)(height >> 16);
+	//bmpinfoheader[11] = (unsigned char)(height >> 24);
+
+	for (int x = 21, y = NULL; x < 25; x++, y += 8)
+	{
+		bmpinfoheader[x] = (unsigned char)(s >> y);
+	}
+
+	//bmpinfoheader[21] = (unsigned char)(s);
+	//bmpinfoheader[22] = (unsigned char)(s >> 8);
+	//bmpinfoheader[23] = (unsigned char)(s >> 16);
+	//bmpinfoheader[24] = (unsigned char)(s >> 24);
+
+	for (int x = 25, y = NULL; x < 29; x++, y += 8)
+	{
+		bmpinfoheader[x] = (unsigned char)(ppm >> y);
+	}
+
+	//bmpinfoheader[25] = (unsigned char)(ppm);
+	//bmpinfoheader[26] = (unsigned char)(ppm >> 8);
+	//bmpinfoheader[27] = (unsigned char)(ppm >> 16);
+	//bmpinfoheader[28] = (unsigned char)(ppm >> 24);
+
+	for (int x = 29, y = NULL; x < 33; x++, y += 8)
+	{
+		bmpinfoheader[x] = (unsigned char)(ppm >> y);
+	}
+
+	//bmpinfoheader[29] = (unsigned char)(ppm);
+	//bmpinfoheader[30] = (unsigned char)(ppm >> 8);
+	//bmpinfoheader[31] = (unsigned char)(ppm >> 16);
+	//bmpinfoheader[32] = (unsigned char)(ppm >> 24);
 
 	#if _MSC_VER >= 1500
 	errno_t error;
