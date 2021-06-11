@@ -1,8 +1,5 @@
-﻿  Light.cpp
-  Main.cpp
+﻿  Main.cpp
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(130,41): warning C4838: conversion from 'int' to 'unsigned char' requires a narrowing conversion
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(130,58): warning C4838: conversion from 'int' to 'unsigned char' requires a narrowing conversion
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(130,76): warning C4838: conversion from 'int' to 'unsigned char' requires a narrowing conversion
-  Sphere.cpp
-  Generating Code...
   RayTracer.vcxproj -> C:\Users\Macaw\source\repos\RayTracer\Debug\RayTracer.exe

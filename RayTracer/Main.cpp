@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
 	RGBType* pixels = new RGBType[totalNumberOfPixels];
 
 
-	
+	Vector origin(0, 0, 0);
 	Vector X(1, 0, 0);
 	Vector Y(0, 1, 0);
 	Vector Z(0, 0, 1);
@@ -176,6 +176,11 @@ int main(int argc, char* argv[])
 	// Create scene light
 	Vector lightPosition(-7, 10, -10);
 	Light sceneLight(lightPosition, white_light);
+
+
+	// Scene Objects
+	double sphereRadius = 1;
+	Sphere sceneSphere(origin, sphereRadius, veryGreen);
 
 	for (int x = 0; x < width; x++)
 	{
