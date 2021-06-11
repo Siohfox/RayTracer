@@ -12,6 +12,8 @@
 #include "Vector.h"
 #include "Ray.h"
 #include "Camera.h"
+#include "Colour.h"
+#include "Light.h"
 
 struct RGBType
 {
@@ -146,17 +148,31 @@ int main(int argc, char* argv[])
 	RGBType* pixels = new RGBType[totalNumberOfPixels];
 
 
-	// Camera set up
+	
 	Vector X(1, 0, 0);
 	Vector Y(0, 1, 0);
 	Vector Z(0, 0, 1);
+
+	// Camera set up
 	Vector cameraPosition(3, 1.5, -4);
 	Vector lookAt(0, 0, 0);
 	Vector diffBetweenCamAndTarget(cameraPosition.getVectorX() - lookAt.getVectorX(), cameraPosition.getVectorY() - lookAt.getVectorY(), cameraPosition.getVectorZ() - lookAt.getVectorY());
 	Vector cameraDirection = diffBetweenCamAndTarget.Negative().Normalize();
 	Vector cameraRight = Y.CrossProduct(cameraDirection).Normalize();
 	Vector cameraDown = cameraRight.CrossProduct(cameraDirection);
+
+	// Create scene camera
 	Camera sceneCamera(cameraPosition, cameraDirection, cameraRight, cameraDown);
+
+	// Colours set up
+	Colour white_light(1.0, 1.0, 1.0, 0);
+	Colour veryGreen(0.5, 1.0, 0.5, 0.3);
+	Colour gray(0.5, 0.5, 0.5, 0);
+	Colour black(0.0, 0.0, 0.0, 0.0);
+
+	// Create scene light
+	Vector lightPosition(-7, 10, -10);
+	Light sceneLight(lightPosition, white_light);
 
 	for (int x = 0; x < width; x++)
 	{
