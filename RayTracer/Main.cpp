@@ -145,11 +145,18 @@ int main(int argc, char* argv[])
 
 	RGBType* pixels = new RGBType[totalNumberOfPixels];
 
+
+	// Camera set up
 	Vector X(1, 0, 0);
 	Vector Y(0, 1, 0);
 	Vector Z(0, 0, 1);
-
-
+	Vector cameraPosition(3, 1.5, -4);
+	Vector lookAt(0, 0, 0);
+	Vector diffBetweenCamAndTarget(cameraPosition.getVectorX() - lookAt.getVectorX(), cameraPosition.getVectorY() - lookAt.getVectorY(), cameraPosition.getVectorZ() - lookAt.getVectorY());
+	Vector cameraDirection = diffBetweenCamAndTarget.Negative().Normalize();
+	Vector cameraRight = Y.CrossProduct(cameraDirection).Normalize();
+	Vector cameraDown = cameraRight.CrossProduct(cameraDirection);
+	Camera sceneCamera(cameraPosition, cameraDirection, cameraRight, cameraDown);
 
 	for (int x = 0; x < width; x++)
 	{

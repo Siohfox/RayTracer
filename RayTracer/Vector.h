@@ -20,7 +20,7 @@ public:
 	Vector Negative();
 	double DotProduct(Vector);
 	Vector CrossProduct(Vector);
-	Vector AddVector(Vector v);
+	Vector AddVector(Vector);
 	Vector MultiplyVector(double scalar);
 
 private:
