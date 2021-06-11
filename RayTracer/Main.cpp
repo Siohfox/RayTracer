@@ -15,6 +15,7 @@
 #include "Colour.h"
 #include "Light.h"
 #include "Sphere.h"
+#include "Object.h"
 
 struct RGBType
 {
