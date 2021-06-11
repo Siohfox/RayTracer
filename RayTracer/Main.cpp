@@ -172,6 +172,7 @@ int main(int argc, char* argv[])
 	// Colours set up
 	Colour white_light(1.0, 1.0, 1.0, 0);
 	Colour veryGreen(0.5, 1.0, 0.5, 0.3);
+	Colour maroony(0.5, 0.25, 0.25, 0);
 	Colour gray(0.5, 0.5, 0.5, 0);
 	Colour black(0.0, 0.0, 0.0, 0.0);
 
@@ -183,6 +184,8 @@ int main(int argc, char* argv[])
 	// Scene Objects
 	double sphereRadius = 1;
 	Sphere sceneSphere(origin, sphereRadius, veryGreen);
+	
+	Plane scenePlane(Y, -1, maroony);
 
 	for (int x = 0; x < width; x++)
 	{
