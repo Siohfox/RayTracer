@@ -14,6 +14,7 @@
 #include "Camera.h"
 #include "Colour.h"
 #include "Light.h"
+#include "Sphere.h"
 
 struct RGBType
 {
