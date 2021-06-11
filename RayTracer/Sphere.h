@@ -2,10 +2,11 @@
 #define _SPHERE_H
 
 #include "math.h"
+#include "Object.h"
 #include "Vector.h"
 #include "Colour.h"
 
-class Sphere
+class Sphere : public Object
 {
 public:
 	Sphere();
