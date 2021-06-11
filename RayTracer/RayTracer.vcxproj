@@ -144,6 +144,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vector.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Colour.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Vector.h" />
