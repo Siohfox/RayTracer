@@ -155,8 +155,10 @@ int main(int argc, char* argv[])
 
 	// Camera set up
 	Vector cameraPosition(3, 1.5, -4);
+
 	Vector lookAt(0, 0, 0);
-	Vector diffBetweenCamAndTarget(cameraPosition.getVectorX() - lookAt.getVectorX(), cameraPosition.getVectorY() - lookAt.getVectorY(), cameraPosition.getVectorZ() - lookAt.getVectorY());
+
+	Vector diffBetweenCamAndTarget(cameraPosition.getVectorX() - lookAt.getVectorX(), cameraPosition.getVectorY() - lookAt.getVectorY(), cameraPosition.getVectorZ() - lookAt.getVectorZ());
 	Vector cameraDirection = diffBetweenCamAndTarget.Negative().Normalize();
 	Vector cameraRight = Y.CrossProduct(cameraDirection).Normalize();
 	Vector cameraDown = cameraRight.CrossProduct(cameraDirection);
