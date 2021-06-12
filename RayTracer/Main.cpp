@@ -146,6 +146,7 @@ int main(int argc, char* argv[])
 	int dpi = 72;
 	int width = 640;
 	int height = 480;
+	double aspectratio = (double)width / (double)height;
 	int totalNumberOfPixels = width * height;
 
 	RGBType* pixels = new RGBType[totalNumberOfPixels];
@@ -181,17 +182,55 @@ int main(int argc, char* argv[])
 	Light sceneLight(lightPosition, white_light);
 
 
-	// Scene Objects
+	// Scene Object
 	double sphereRadius = 1;
 	Sphere sceneSphere(origin, sphereRadius, veryGreen);
-	
 	Plane scenePlane(Y, -1, maroony);
+
+	std::vector<Object*> sceneObjects;
+	sceneObjects.push_back(dynamic_cast<Object*>(&sceneSphere));
+	sceneObjects.push_back(dynamic_cast<Object*>(&scenePlane));
+
+	double xAmount, yAmount;
 
 	for (int x = 0; x < width; x++)
 	{
 		for (int y = 0; y < height; y++)
 		{
 			thisOne = y * width + x;
+
+			// start with no anti-aliasing
+			if (width > height)
+			{
+				// The image is wider than it is tall
+				xAmount = ((x + 0.5) / width) * aspectratio - ( ( (width - height) / (double)height ) / 2 );
+				yAmount = ((height - y) + 0.5) / height;
+			}
+			else if (height > width)
+			{
+				// The image is taller than it is wide
+				xAmount = (x + 0.5) / width;
+				yAmount = ( ( (height - y) + 0.5) / height) / aspectratio - ( ( (height - width) / (double)width ) / 2 );
+			}
+			else
+			{
+				// The image is square
+				xAmount = (x + 0.5) / width;
+				yAmount = ((height - y) + 0.5) / height;
+			}
+
+			Vector cameraRayOrigin = sceneCamera.getCameraPosition();
+			Vector cameraRayDirection = cameraDirection.AddVector(cameraRight.MultiplyVector(xAmount - 0.5).AddVector(cameraDown.MultiplyVector(yAmount - 0.5))).Normalize();
+			Ray cameraRay(cameraRayOrigin, cameraRayDirection);
+
+			std::vector<double> intersections;
+
+			// See if ray intersects for each object in the scene
+			for (int index = 0; index < sceneObjects.size(); index++)
+			{
+				// Find intersection with the cam ray and push it into the intersections vector
+				intersections.push_back(sceneObjects.at(index)->findIntersection(cameraRay));
+			}
 
 			if ((x > 200 && x < 440) && (y > 200 && y < 280))
 			{
