@@ -23,7 +23,7 @@ Vector Plane::getNormalAt(Vector point)
 	return m_normal;
 }
 
-double Plane::findIntesection(Ray ray)
+double Plane::findIntersection(Ray ray)
 {
 	Vector rayDirection = ray.getRayDirection();
 

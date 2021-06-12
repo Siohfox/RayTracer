@@ -201,8 +201,6 @@ int winningObjectIndex(std::vector<double> objectIntersections)
 	}
 }
 
-
-
 int thisOne;
 
 int main(int argc, char* argv[])
