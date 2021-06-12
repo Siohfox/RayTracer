@@ -18,7 +18,7 @@ public:
 	double getSphereRadius() { return m_radius; }
 	Colour getSphereColour() { return m_colour; }
 
-	double findIntersection(Ray ray);
+	virtual double findIntersection(Ray ray);
 
 	Vector getNormalAt(Vector point);
 

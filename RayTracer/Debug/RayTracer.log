@@ -5,4 +5,8 @@ C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(132,76): warning C4838:
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(173,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(185,30): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(295,30): warning C4018: '<': signed/unsigned mismatch
+  Object.cpp
+  Plane.cpp
+  Sphere.cpp
+  Generating Code...
   RayTracer.vcxproj -> C:\Users\Macaw\source\repos\RayTracer\Debug\RayTracer.exe

@@ -301,6 +301,8 @@ int main(int argc, char* argv[])
 			// Find which object is closer to the camera
 			int indexOfWinningObject = winningObjectIndex(intersections);
 
+			std::cout << indexOfWinningObject;
+
 			if ((x > 200 && x < 440) && (y > 200 && y < 280))
 			{
 				pixels[thisOne].red = 23;

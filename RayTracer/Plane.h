@@ -20,7 +20,7 @@ public:
 
 	Vector getNormalAt(Vector point);
 
-	double findIntesection(Ray ray);
+	virtual double findIntesection(Ray ray);
 
 private:
 	Vector m_normal;

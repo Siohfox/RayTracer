@@ -14,7 +14,7 @@ public:
 	// Methods
 	Colour getObjectColour() { return Colour (0.0, 0.0, 0.0, 0); }
 
-	double findIntersection(Ray ray);
+	virtual double findIntersection(Ray ray);
 
 };
 
