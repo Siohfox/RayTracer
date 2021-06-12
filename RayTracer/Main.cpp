@@ -137,6 +137,72 @@ void SaveBMP(const char* filename, int width, int height, int dpi, RGBType* data
 	fclose(file);
 }
 
+int winningObjectIndex(std::vector<double> objectIntersections)
+{
+	//return the index of the winning intersection
+	int indexOfMinValue;
+
+	// prevent unnecessary calculations
+	if (objectIntersections.size() == 0)
+	{
+		// if there are no intersections
+		return -1;
+	}
+	
+	else if (objectIntersections.size() == 1)
+	{
+		if (objectIntersections.at(0) > 0)
+		{
+			// if that intersection is greater than zero, then it's our index of min value
+			// zero is the winning object index of the array ( first element )
+			return 0;
+		}
+		else
+		{
+			// otherwise the only intersection value is negative, the ray missed everything
+			return -1;
+		}
+	}
+
+	// Otherwise there are more than one intersections with the ray
+	else
+	{
+		// find maximum value in the vector
+		double max = 0;
+
+		for (int i = 0; i < objectIntersections.size(); i++)
+		{
+			if (max < objectIntersections.at(i))
+			{
+				max = objectIntersections.at(i);
+			}
+		}
+
+		// then starting from the max value, find the minimum positive value
+		if (max > 0)
+		{
+			// we only want positive intersections
+			for (int index = 0; index < objectIntersections.size(); index++)
+			{
+				if (objectIntersections.at(index) > 0 && objectIntersections.at(index) <= max)
+				{
+					max = objectIntersections.at(index);
+					indexOfMinValue = index;
+				}
+			}
+
+			return indexOfMinValue;
+		}
+		else
+		{
+			// all intersections where negative
+			return -1;
+		}
+	}
+}
+
+
+
 int thisOne;
 
 int main(int argc, char* argv[])
@@ -231,6 +297,9 @@ int main(int argc, char* argv[])
 				// Find intersection with the cam ray and push it into the intersections vector
 				intersections.push_back(sceneObjects.at(index)->findIntersection(cameraRay));
 			}
+
+			// Find which object is closer to the camera
+			int indexOfWinningObject = winningObjectIndex(intersections);
 
 			if ((x > 200 && x < 440) && (y > 200 && y < 280))
 			{
