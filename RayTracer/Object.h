@@ -12,7 +12,7 @@ public:
 	Object();
 
 	// Methods
-	Colour getObjectColour() { return Colour (0.0, 0.0, 0.0, 0); }
+	virtual Colour getColour() { return Colour (0.0, 0.0, 0.0, 0); }
 
 	virtual double findIntersection(Ray ray);
 

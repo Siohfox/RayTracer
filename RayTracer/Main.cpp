@@ -301,17 +301,23 @@ int main(int argc, char* argv[])
 
 			std::cout << indexOfWinningObject;
 
-			if ((x > 200 && x < 440) && (y > 200 && y < 280))
+
+			if (indexOfWinningObject == -1)
 			{
-				pixels[thisOne].red = 23;
-				pixels[thisOne].green = 222;
-				pixels[thisOne].blue = 10;
-			}
-			else 
-			{
+				// set background to black
 				pixels[thisOne].red = 0;
 				pixels[thisOne].green = 0;
 				pixels[thisOne].blue = 0;
+			}
+			else 
+			{
+				// index coresponds to an object in scene
+
+				Colour thisColour = sceneObjects.at(indexOfWinningObject)->getColour();
+
+				pixels[thisOne].red = thisColour.getColourRed();
+				pixels[thisOne].green = thisColour.getColourGreen();
+				pixels[thisOne].blue = thisColour.getColourBlue();
 			}
 
 			//return colour

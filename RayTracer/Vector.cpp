@@ -38,7 +38,7 @@ Vector Vector::Negative()
 
 double Vector::DotProduct(Vector v)
 {
-	return m_x * v.getVectorX() + m_y * v.getVectorY() + m_z * getVectorZ();
+	return m_x * v.getVectorX() + m_y * v.getVectorY() + m_z * v.getVectorZ();
 }
 
 Vector Vector::CrossProduct(Vector v)

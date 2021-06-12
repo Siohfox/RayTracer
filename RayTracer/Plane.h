@@ -16,7 +16,7 @@ public:
 	// Methods
 	Vector getPlaneNormal() { return m_normal; }
 	double getPlaneDistance() { return m_distance; }
-	Colour getPlaneColour() { return m_colour; }
+	virtual Colour getColour() { return m_colour; }
 
 	Vector getNormalAt(Vector point);
 

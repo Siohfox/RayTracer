@@ -16,24 +16,25 @@ Sphere::Sphere(Vector centreValue, double radiusValue, Colour colourValue)
 
 double Sphere::findIntersection(Ray ray)
 {
-	Vector rayOrigin = ray.getRayOrigin();
-	double rayOriginX = rayOrigin.getVectorX();
-	double rayOriginY = rayOrigin.getVectorY();
-	double rayOriginZ = rayOrigin.getVectorZ();
+	Vector ray_origin = ray.getRayOrigin();
+	double ray_origin_x = ray_origin.getVectorX();
+	double ray_origin_y = ray_origin.getVectorY();
+	double ray_origin_z = ray_origin.getVectorZ();
 
-	Vector rayDirection = ray.getRayOrigin();
-	double rayDirectionX = rayDirection.getVectorX();
-	double rayDirectionY = rayDirection.getVectorY();
-	double rayDirectionZ = rayDirection.getVectorZ();
+	Vector ray_direction = ray.getRayDirection();
+	double ray_direction_x = ray_direction.getVectorX();
+	double ray_direction_y = ray_direction.getVectorY();
+	double ray_direction_z = ray_direction.getVectorZ();
 
-	Vector sphereCentre = m_centre;
-	double sphereCentreX = sphereCentre.getVectorX();
-	double sphereCentreY = sphereCentre.getVectorY();
-	double sphereCentreZ = sphereCentre.getVectorZ();
+	Vector sphere_center = m_centre;
+	double sphere_center_x = sphere_center.getVectorX();
+	double sphere_center_y = sphere_center.getVectorY();
+	double sphere_center_z = sphere_center.getVectorZ();
 
 	double a = 1; // normalized
-	double b = (2 * (rayOriginX - sphereCentreX) * rayDirectionX) + (2 * (rayOriginY - sphereCentreY) * rayDirectionY) + (2 * (rayOriginZ - sphereCentreZ) * rayDirectionZ);
-	double c = pow(rayOriginX - sphereCentreX, 2) + pow(rayOriginY - sphereCentreY, 2) + pow(rayOriginZ - sphereCentreZ, 2) - (m_radius*m_radius);
+	double b = (2 * (ray_origin_x - sphere_center_x) * ray_direction_x) + (2 * (ray_origin_y - sphere_center_y) * ray_direction_y) + (2 * (ray_origin_z - sphere_center_z) * ray_direction_z);
+	double c = pow(ray_origin_x - sphere_center_x, 2) + pow(ray_origin_y - sphere_center_y, 2) + pow(ray_origin_z - sphere_center_z, 2) - (m_radius * m_radius);
+
 
 	double discriminant = b * b - 4 * c;
 

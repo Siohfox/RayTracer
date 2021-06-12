@@ -16,7 +16,7 @@ public:
 	// Methods
 	Vector getSphereCentre() { return m_centre; }
 	double getSphereRadius() { return m_radius; }
-	Colour getSphereColour() { return m_colour; }
+	virtual Colour getColour() { return m_colour; }
 
 	virtual double findIntersection(Ray ray);
 
