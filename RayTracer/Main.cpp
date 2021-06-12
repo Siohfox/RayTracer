@@ -17,6 +17,7 @@
 #include "Sphere.h"
 #include "Object.h"
 #include "Plane.h"
+#include "Source.h"
 
 struct RGBType
 {
@@ -201,6 +202,11 @@ int winningObjectIndex(std::vector<double> objectIntersections)
 	}
 }
 
+Colour GetColourAt(Vector intersectionPosition, Vector intersectingRayDirection, std::vector<Object*> sceneObjects, int indexOfWinningObject, std::vector<Source*> sceneLightSources, double accuracy, double ambientlight)
+{
+	return Colour(0, 0, 0, 0);
+}
+
 int thisOne;
 
 int main(int argc, char* argv[])
@@ -210,8 +216,11 @@ int main(int argc, char* argv[])
 	int dpi = 72;
 	int width = 640;
 	int height = 480;
-	double aspectratio = (double)width / (double)height;
 	int totalNumberOfPixels = width * height;
+
+	double aspectratio = (double)width / (double)height;
+	double ambientlight = 0.2;
+	double accuracy = 0.000001;
 
 	RGBType* pixels = new RGBType[totalNumberOfPixels];
 
@@ -244,6 +253,9 @@ int main(int argc, char* argv[])
 	// Create scene light
 	Vector lightPosition(-7, 10, -10);
 	Light sceneLight(lightPosition, white_light);
+
+	std::vector<Source*> sceneLightSources;
+	sceneLightSources.push_back(dynamic_cast<Source*>(&sceneLight));
 
 
 	// Scene Object
@@ -313,14 +325,21 @@ int main(int argc, char* argv[])
 			{
 				// index coresponds to an object in scene
 
-				Colour thisColour = sceneObjects.at(indexOfWinningObject)->getColour();
+				if (intersections.at(indexOfWinningObject) > accuracy)
+				{
+					// determine the position and direction vectors at the point of intersection
 
-				pixels[thisOne].red = thisColour.getColourRed();
-				pixels[thisOne].green = thisColour.getColourGreen();
-				pixels[thisOne].blue = thisColour.getColourBlue();
+					Vector intersectionPosition = cameraRayOrigin.AddVector(cameraRayDirection.MultiplyVector(intersections.at(indexOfWinningObject)));
+					Vector intersectingRayDirection = cameraRayDirection;
+
+					Colour intersectionColour = GetColourAt(intersectionPosition, intersectingRayDirection, sceneObjects, indexOfWinningObject, sceneLightSources, accuracy, ambientlight);
+
+					pixels[thisOne].red = intersectionColour.getColourRed();
+					pixels[thisOne].green = intersectionColour.getColourGreen();
+					pixels[thisOne].blue = intersectionColour.getColourBlue();
+				}
+				
 			}
-
-			//return colour
 		}
 	}
 
