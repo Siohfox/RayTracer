@@ -204,7 +204,77 @@ int winningObjectIndex(std::vector<double> objectIntersections)
 
 Colour GetColourAt(Vector intersectionPosition, Vector intersectingRayDirection, std::vector<Object*> sceneObjects, int indexOfWinningObject, std::vector<Source*> sceneLightSources, double accuracy, double ambientlight)
 {
-	return Colour(0, 0, 0, 0);
+	Colour winningObjectColour = sceneObjects.at(indexOfWinningObject)->getColour();
+
+	Vector winningObjectNormal = sceneObjects.at(indexOfWinningObject)->getNormalAt(intersectionPosition);
+
+	Colour finalColour = winningObjectColour.colourScalar(ambientlight);
+
+	for (int lightIndex = 0; lightIndex < sceneLightSources.size(); lightIndex++)
+	{
+		//potentially no need to normalize
+		Vector lightDirection = sceneLightSources.at(lightIndex)->getLightPosition().AddVector(intersectionPosition.Negative()).Normalize();
+
+		float cosineAngle = winningObjectNormal.DotProduct(lightDirection);
+
+		if (cosineAngle > 0)
+		{
+			// test for shadows if positive
+			bool shadowed = false;
+
+			Vector distanceToLight = sceneLightSources.at(lightIndex)->getLightPosition().AddVector(intersectionPosition.Negative()).Normalize();
+
+			float distanceToLightMagnitude = distanceToLight.Magnitude();
+
+			Ray shadowRay(intersectionPosition, sceneLightSources.at(lightIndex)->getLightPosition().AddVector(intersectionPosition.Negative()).Normalize());
+
+			std::vector<double> secondaryIntersections;
+
+			for (int objectIndex = 0; objectIndex < sceneObjects.size() && shadowed == false; objectIndex++)
+			{
+				secondaryIntersections.push_back(sceneObjects.at(objectIndex)->findIntersection(shadowRay));
+			}
+
+			for (int c = 0; c < secondaryIntersections.size(); c++)
+			{
+				if (secondaryIntersections.at(c) > accuracy)
+				{
+					if (secondaryIntersections.at(c) <= distanceToLightMagnitude )
+					{
+						shadowed = true;
+					}
+				}
+				break;
+			}
+
+			if (shadowed == false)
+			{
+				finalColour = finalColour.addColour(winningObjectColour.multiplyColour(sceneLightSources.at(lightIndex)->getColour()).colourScalar(cosineAngle));
+
+				if (winningObjectColour.getColourSpecial() > 0 && winningObjectColour.getColourSpecial() <= 1)
+				{
+					// if special between 0 and 1 then it shiny
+
+					double dot1 = winningObjectNormal.DotProduct(intersectingRayDirection.Negative());
+					Vector scarlar1 = winningObjectNormal.MultiplyVector(dot1);
+					Vector add1 = scarlar1.AddVector(intersectingRayDirection);
+					Vector scalar2 = add1.MultiplyVector(2);
+					Vector add2 = intersectingRayDirection.Negative().AddVector(scalar2);
+					Vector reflection_direction = add2.Normalize();
+
+					double specular = reflection_direction.DotProduct(lightDirection);
+
+					if (specular > 0)
+					{
+						specular = pow(specular, 10);
+						finalColour = finalColour.addColour(sceneLightSources.at(lightIndex)->getColour().colourScalar(specular * winningObjectColour.getColourSpecial()));
+					}
+				}
+			}
+		}
+	}
+
+	return finalColour;
 }
 
 int thisOne;

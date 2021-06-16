@@ -14,6 +14,8 @@ public:
 	// Methods
 	virtual Colour getColour() { return Colour (0.0, 0.0, 0.0, 0); }
 
+	virtual Vector getNormalAt(Vector point) { return Vector(0, 0, 0); }
+
 	virtual double findIntersection(Ray ray);
 
 };

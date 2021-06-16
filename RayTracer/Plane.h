@@ -18,7 +18,7 @@ public:
 	double getPlaneDistance() { return m_distance; }
 	virtual Colour getColour() { return m_colour; }
 
-	Vector getNormalAt(Vector point);
+	virtual Vector getNormalAt(Vector point);
 
 	virtual double findIntersection(Ray ray);
 

@@ -1,11 +1,13 @@
-﻿  Light.cpp
-  Main.cpp
+﻿  Main.cpp
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(133,41): warning C4838: conversion from 'int' to 'unsigned char' requires a narrowing conversion
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(133,58): warning C4838: conversion from 'int' to 'unsigned char' requires a narrowing conversion
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(133,76): warning C4838: conversion from 'int' to 'unsigned char' requires a narrowing conversion
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(174,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(186,30): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(305,30): warning C4018: '<': signed/unsigned mismatch
-  Source.cpp
-  Generating Code...
+C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(213,38): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(218,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(227,35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(233,42): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(238,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Macaw\source\repos\RayTracer\RayTracer\Main.cpp(375,30): warning C4018: '<': signed/unsigned mismatch
   RayTracer.vcxproj -> C:\Users\Macaw\source\repos\RayTracer\Debug\RayTracer.exe

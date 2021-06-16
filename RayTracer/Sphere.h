@@ -20,7 +20,7 @@ public:
 
 	virtual double findIntersection(Ray ray);
 
-	Vector getNormalAt(Vector point);
+	virtual Vector getNormalAt(Vector point);
 
 private:
 	Vector m_centre;
