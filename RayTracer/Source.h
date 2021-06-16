@@ -11,7 +11,7 @@ public:
 	Source() {}
 
 	virtual Vector getLightPosition() { return Vector(0, 0, 0); }
-	virtual Colour getColour() { return Colour(1, 1, 1, 0); }
+	virtual Colour getLightColour() { return Colour(1, 1, 1, 0); }
 
 };
 

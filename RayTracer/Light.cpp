@@ -8,6 +8,6 @@ Light::Light()
 
 Light::Light(Vector position, Colour colour)
 {
-	m_position = m_position;
+	m_position = position;
 	m_colour = colour;
 }

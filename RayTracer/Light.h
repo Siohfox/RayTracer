@@ -15,7 +15,7 @@ public:
 
 	// Methods
 	virtual Vector getLightPosition() { return m_position; }
-	virtual Colour getColour() { return m_colour; }
+	virtual Colour getLightColour() { return m_colour; }
 
 private:
 	Vector m_position;

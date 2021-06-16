@@ -249,7 +249,7 @@ Colour GetColourAt(Vector intersectionPosition, Vector intersectingRayDirection,
 
 			if (shadowed == false)
 			{
-				finalColour = finalColour.addColour(winningObjectColour.multiplyColour(sceneLightSources.at(lightIndex)->getColour()).colourScalar(cosineAngle));
+				finalColour = finalColour.addColour(winningObjectColour.multiplyColour(sceneLightSources.at(lightIndex)->getLightColour()).colourScalar(cosineAngle));
 
 				if (winningObjectColour.getColourSpecial() > 0 && winningObjectColour.getColourSpecial() <= 1)
 				{
@@ -267,7 +267,7 @@ Colour GetColourAt(Vector intersectionPosition, Vector intersectingRayDirection,
 					if (specular > 0)
 					{
 						specular = pow(specular, 10);
-						finalColour = finalColour.addColour(sceneLightSources.at(lightIndex)->getColour().colourScalar(specular * winningObjectColour.getColourSpecial()));
+						finalColour = finalColour.addColour(sceneLightSources.at(lightIndex)->getLightColour().colourScalar(specular * winningObjectColour.getColourSpecial()));
 					}
 				}
 			}
@@ -323,7 +323,6 @@ int main(int argc, char* argv[])
 	// Create scene light
 	Vector lightPosition(-7, 10, -10);
 	Light sceneLight(lightPosition, white_light);
-
 	std::vector<Source*> sceneLightSources;
 	sceneLightSources.push_back(dynamic_cast<Source*>(&sceneLight));
 
