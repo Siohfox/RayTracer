@@ -130,7 +130,7 @@ void SaveBMP(const char* filename, int width, int height, int dpi, RGBType* data
 		double green = (data[i].green) * 255;
 		double blue = (data[i].blue) * 255;
 
-		unsigned char colour[3] = { (int)floor(blue),(int)floor(green),(int)floor(red) };
+		unsigned char colour[3] = { static_cast<unsigned char>(floor(blue)),static_cast<unsigned char>(floor(green)),static_cast<unsigned char>(floor(red)) };
 
 		fwrite(colour, 1, 3, file);
 	}
@@ -141,7 +141,7 @@ void SaveBMP(const char* filename, int width, int height, int dpi, RGBType* data
 int winningObjectIndex(std::vector<double> objectIntersections)
 {
 	//return the index of the winning intersection
-	int indexOfMinValue;
+	int indexOfMinValue = 0;
 
 	// prevent unnecessary calculations
 	if (objectIntersections.size() == 0)
@@ -171,7 +171,7 @@ int winningObjectIndex(std::vector<double> objectIntersections)
 		// find maximum value in the vector
 		double max = 0;
 
-		for (int i = 0; i < objectIntersections.size(); i++)
+		for (size_t i = 0; i < objectIntersections.size(); i++)
 		{
 			if (max < objectIntersections.at(i))
 			{
@@ -183,7 +183,7 @@ int winningObjectIndex(std::vector<double> objectIntersections)
 		if (max > 0)
 		{
 			// we only want positive intersections
-			for (int index = 0; index < objectIntersections.size(); index++)
+			for (size_t index = 0; index < objectIntersections.size(); index++)
 			{
 				if (objectIntersections.at(index) > 0 && objectIntersections.at(index) <= max)
 				{
@@ -210,12 +210,12 @@ Colour GetColourAt(Vector intersectionPosition, Vector intersectingRayDirection,
 
 	Colour finalColour = winningObjectColour.colourScalar(ambientlight);
 
-	for (int lightIndex = 0; lightIndex < sceneLightSources.size(); lightIndex++)
+	for (size_t lightIndex = 0; lightIndex < sceneLightSources.size(); lightIndex++)
 	{
 		//potentially no need to normalize
 		Vector lightDirection = sceneLightSources.at(lightIndex)->getLightPosition().AddVector(intersectionPosition.Negative()).Normalize();
 
-		float cosineAngle = winningObjectNormal.DotProduct(lightDirection);
+		double cosineAngle = winningObjectNormal.DotProduct(lightDirection);
 
 		if (cosineAngle > 0)
 		{
@@ -224,18 +224,18 @@ Colour GetColourAt(Vector intersectionPosition, Vector intersectingRayDirection,
 
 			Vector distanceToLight = sceneLightSources.at(lightIndex)->getLightPosition().AddVector(intersectionPosition.Negative()).Normalize();
 
-			float distanceToLightMagnitude = distanceToLight.Magnitude();
+			double distanceToLightMagnitude = distanceToLight.Magnitude();
 
 			Ray shadowRay(intersectionPosition, sceneLightSources.at(lightIndex)->getLightPosition().AddVector(intersectionPosition.Negative()).Normalize());
 
 			std::vector<double> secondaryIntersections;
 
-			for (int objectIndex = 0; objectIndex < sceneObjects.size() && shadowed == false; objectIndex++)
+			for (size_t objectIndex = 0; objectIndex < sceneObjects.size() && shadowed == false; objectIndex++)
 			{
 				secondaryIntersections.push_back(sceneObjects.at(objectIndex)->findIntersection(shadowRay));
 			}
 
-			for (int c = 0; c < secondaryIntersections.size(); c++)
+			for (size_t c = 0; c < secondaryIntersections.size(); c++)
 			{
 				if (secondaryIntersections.at(c) > accuracy)
 				{
@@ -274,7 +274,7 @@ Colour GetColourAt(Vector intersectionPosition, Vector intersectingRayDirection,
 		}
 	}
 
-	return finalColour;
+	return finalColour.Clip();
 }
 
 int thisOne;
@@ -303,6 +303,7 @@ int main(int argc, char* argv[])
 	// Camera set up
 	Vector cameraPosition(3, 1.5, -4);
 
+	// Define where the camera is looking at
 	Vector lookAt(0, 0, 0);
 
 	Vector diffBetweenCamAndTarget(cameraPosition.getVectorX() - lookAt.getVectorX(), cameraPosition.getVectorY() - lookAt.getVectorY(), cameraPosition.getVectorZ() - lookAt.getVectorZ());
@@ -315,7 +316,8 @@ int main(int argc, char* argv[])
 
 	// Colours set up
 	Colour white_light(1.0, 1.0, 1.0, 0);
-	Colour veryGreen(0.5, 1.0, 0.5, 0.3);
+	Colour blue(0.5, 0.5, 1.0, 0.3);
+	Colour green(0.25, 1.0, 0.25, 0.2);
 	Colour maroony(0.5, 0.25, 0.25, 0);
 	Colour gray(0.5, 0.5, 0.5, 0);
 	Colour black(0.0, 0.0, 0.0, 0.0);
@@ -329,8 +331,8 @@ int main(int argc, char* argv[])
 
 	// Scene Object
 	double sphereRadius = 1;
-	Sphere sceneSphere(origin, sphereRadius, veryGreen);
-	Plane scenePlane(Y, -1, maroony);
+	Sphere sceneSphere(origin, sphereRadius, green);
+	Plane scenePlane(Y, -1, gray);
 
 	std::vector<Object*> sceneObjects;
 	sceneObjects.push_back(dynamic_cast<Object*>(&sceneSphere));
@@ -348,20 +350,20 @@ int main(int argc, char* argv[])
 			if (width > height)
 			{
 				// The image is wider than it is tall
-				xAmount = ((x + 0.5) / width) * aspectratio - ( ( (width - height) / (double)height ) / 2 );
-				yAmount = ((height - y) + 0.5) / height;
+				xAmount = ((x + 0.5) / (double)width) * aspectratio - ( ( ((double)width - (double)height) / (double)height ) / 2 );
+				yAmount = (((double)height - y) + 0.5) / height;
 			}
 			else if (height > width)
 			{
 				// The image is taller than it is wide
 				xAmount = (x + 0.5) / width;
-				yAmount = ( ( (height - y) + 0.5) / height) / aspectratio - ( ( (height - width) / (double)width ) / 2 );
+				yAmount = ( ( ((double)height - y) + 0.5) / height) / aspectratio - ( ( ((double)height - width) / (double)width ) / 2 );
 			}
 			else
 			{
 				// The image is square
 				xAmount = (x + 0.5) / width;
-				yAmount = ((height - y) + 0.5) / height;
+				yAmount = (((double)height - y) + 0.5) / height;
 			}
 
 			Vector cameraRayOrigin = sceneCamera.getCameraPosition();
@@ -371,7 +373,7 @@ int main(int argc, char* argv[])
 			std::vector<double> intersections;
 
 			// See if ray intersects for each object in the scene
-			for (int index = 0; index < sceneObjects.size(); index++)
+			for (size_t index = 0; index < sceneObjects.size(); index++)
 			{
 				// Find intersection with the cam ray and push it into the intersections vector
 				intersections.push_back(sceneObjects.at(index)->findIntersection(cameraRay));
@@ -380,7 +382,7 @@ int main(int argc, char* argv[])
 			// Find which object is closer to the camera
 			int indexOfWinningObject = winningObjectIndex(intersections);
 
-			std::cout << indexOfWinningObject;
+			//std::cout << indexOfWinningObject;
 
 
 			if (indexOfWinningObject == -1)

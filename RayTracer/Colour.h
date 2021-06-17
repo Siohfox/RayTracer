@@ -31,6 +31,9 @@ public:
 
 	Colour colourAverage(Colour colour) { return Colour((m_red + colour.getColourRed()) / 2, (m_green + colour.getColourGreen()) / 2, (m_blue + colour.getColourBlue()) / 2, m_special); }
 
+	Colour Clip();
+
+
 private:
 	double m_red, m_green, m_blue, m_special;
 };

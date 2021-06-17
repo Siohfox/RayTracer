@@ -1,2 +1,12 @@
-﻿  Light.cpp
+﻿  Camera.cpp
+  Colour.cpp
+  Light.cpp
+  Main.cpp
+  Object.cpp
+  Plane.cpp
+  Ray.cpp
+  Source.cpp
+  Sphere.cpp
+  Vector.cpp
+  Generating Code...
   RayTracer.vcxproj -> C:\Users\Macaw\source\repos\RayTracer\Debug\RayTracer.exe
