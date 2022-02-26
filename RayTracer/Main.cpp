@@ -29,6 +29,7 @@ struct RGBType
 void SaveBMP(const char* filename, int width, int height, int dpi, RGBType* data)
 {
 	FILE* file;
+
 	int k = width * height;
 	int s = 4 * k;
 	int filesize = 54 + s;
@@ -204,10 +205,13 @@ int winningObjectIndex(std::vector<double> objectIntersections)
 
 Colour GetColourAt(Vector intersectionPosition, Vector intersectingRayDirection, std::vector<Object*> sceneObjects, int indexOfWinningObject, std::vector<Source*> sceneLightSources, double accuracy, double ambientlight)
 {
+	// Find closest object and get its colour
 	Colour winningObjectColour = sceneObjects.at(indexOfWinningObject)->getColour();
 
+	// Find closest object and get its normal
 	Vector winningObjectNormal = sceneObjects.at(indexOfWinningObject)->getNormalAt(intersectionPosition);
 
+	// Final colour is the colour scaled by ambient light 
 	Colour finalColour = winningObjectColour.colourScalar(ambientlight);
 
 	for (size_t lightIndex = 0; lightIndex < sceneLightSources.size(); lightIndex++)
